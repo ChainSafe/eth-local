@@ -1,47 +1,20 @@
-const express = require('express')
+const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
 const app = express();
 const PORT = 3210;
 
-// Require the users home directory
-const HOME_DIR = require('os').homedir();
-const ETH_HOME = '.eth-ssh';
-const FULL_PATH = path.join(HOME_DIR, ETH_HOME);
+// Relative imports
+const Setup = require('./utils/setup');
+const Wallet = require('./utils/wallet');
 
-const promptSchema = {
-  properties: {
-    input: {
-      message: `Create directory ${ETH_HOME} in ${HOME_DIR}? (Y/n)`
-    }
-  }
-}
+// Always run to ensure the environment is correctly setup.
+Setup();
 
-console.log(`\nChecking if ${ETH_HOME} exists in ${HOME_DIR}...`) 
-if (!fs.existsSync(FULL_PATH)) {
-  prompt.start();
-  prompt.get(promptSchema, (err, res) => {
-    if (res.input == 'y') {
-      console.log(`Creating directory...`);
-      try {
-        fs.mkdir(FULL_PATH);
-        console.log('Succesfully created directory');
-      } catch (e) {
-        console.log('Error creating directory, exiting...');
-        console.log(e);
-        process.exit(1);  
-      }  
-    } else if (res.input == 'n') {
+switch (process.argv[2]) {
+  case 'new':
 
-    } else {
-      console.log(`${res.input} is an invalid input.`);
-      console.log('Exiting...');
-      process.exit(1);
-    }
-  });
-} else {
-  console.log(`${ETH_HOME} found in ${HOME_DIR}!`)
 }
 
 // Cross Origin middleware
@@ -54,7 +27,6 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => res.send({connected: true}));
 
 app.get('/getAccounts', (req, res) => {
-  
   console.log('Received request');
 });
 

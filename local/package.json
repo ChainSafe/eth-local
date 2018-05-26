@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ethers": "^3.0.17",
     "express": "^4.16.3",
     "prompt": "^1.0.0"
   }
