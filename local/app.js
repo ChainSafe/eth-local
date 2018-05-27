@@ -24,18 +24,20 @@ console.log(
 if (!process.argv[2]) {
 	console.log('Incorrect command...');
 	console.log('TODO: Use npm yargs');
-	// process.exit(1);
+	process.exit(1);
 } else {
 	// Always verify the correct directory structure is in place
-	Setup.Verify();
 	switch (process.argv[2].toLowerCase()) {
 		case 'setup':
+			Setup.Verify() ? process.exit(1) : null;
 			Setup.Setup();
 			break;
 		case 'new-wallet':
+			Setup.Verify() ? null : process.exit(1);
 			Wallet.createWallet();
 			break;
 		case 'start':
+			Setup.Verify() ? null : process.exit(1);
 			app.listen(PORT);
 			break;
 		default:

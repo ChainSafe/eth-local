@@ -3,12 +3,13 @@ const fs = require('fs');
 const { HOME_DIR, ETH_HOME, FULL_PATH } = require('./constants');
 
 Verify = () => {
-	console.log(`\nChecking if ${ETH_HOME} exists in ${HOME_DIR}...`)
+	console.log(`\nChecking if ${ETH_HOME} exists in ${HOME_DIR}...`);
 	if (!fs.existsSync(FULL_PATH)) {
 		console.log('\nDirectory structure not found! Please run setup');
-		process.exit(1);
+		return false;
 	} else {
-		console.log(`${ETH_HOME} found in ${HOME_DIR}!`)
+		console.log(`${ETH_HOME} found in ${HOME_DIR}!`);
+		return true;
 	}
 };
 
