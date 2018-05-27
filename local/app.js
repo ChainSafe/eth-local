@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const clear = require('clear');
 const chalk = require('chalk');
 const figlet = require('figlet');
