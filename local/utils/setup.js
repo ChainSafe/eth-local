@@ -25,7 +25,7 @@ Setup = async () => {
 		fs.mkdir(FULL_PATH, (err, res) => {
 			if (err) {
 				console.log('Error creating directory, exiting...');
-				console.log(e);
+				console.log(err);
 				process.exit(1);
 			} else {
 				console.log('Succesfully created directory');
