@@ -21,16 +21,22 @@ const createQuestions = [{
 		message: 'Please choose a wallet action:',
 		choices: ['Create Wallet', 'Get Balance']
 	},
+	{
+		name: 'password',
+		type: 'password',
+		message: 'Please choose a password to encrypt your wallet:'
+	},
+	{
+		name: 'confirmPassword',
+		type: 'password',
+		message: 'Re-type password:'
+	},
 ];
 
 CreateWallet = async () => {
 	const resName = await inquirer.prompt(createQuestions[0]);
 	const wallet = ethers.Wallet.createRandom();
-	console.log(`mnemonic: ${wallet.mnemonic}`);
-	await inquirer.prompt(createQuestions[1]);
-	// Get rid of mnemonic
-	clear();
-	const walletName = resName.walletName === "" ? wallet.address : resName.walletName;
+	const walletName = resName.walletName === "" ? wallet.address : `${resName.walletName} - ${wallet.address}`;
 	const filePath = path.join(FULL_PATH, walletName);
 	// Exit if wallet name already exists.
 	if (fs.existsSync(filePath)) {
@@ -38,10 +44,18 @@ CreateWallet = async () => {
 		console.log('\nExiting...');
 		process.exit(1);
 	}
-	// TODO: Encrypt the private key using a password.
-	const content = [wallet.address, wallet.privateKey]
+	console.log(`mnemonic: ${wallet.mnemonic}`);
+	await inquirer.prompt(createQuestions[1]);
+	// Get rid of mnemonic
+	clear();
+	const passRes = await inquirer.prompt(createQuestions.slice(3,5));
+	if (passRes.password !== passRes.confirmPassword) {
+		console.log("Passwords do not match!");
+		process.exit(1);
+	}
+	const encryptedWallet = await wallet.encrypt(passRes.password, percentLoader);
 	// write to a new file
-	fs.writeFile(filePath, JSON.stringify(content), (err) => {
+	fs.writeFile(filePath, JSON.stringify(encryptedWallet), (err) => {
 		// throws an error, you could also catch it here
 		if (err) {
 			console.log(err);
@@ -51,6 +65,10 @@ CreateWallet = async () => {
 		console.log(`Successfully created ${walletName} at ${filePath}`);
 		process.exit(1);
 	});
+};
+
+percentLoader = (percent) => {
+	console.log("Encrypting: " + parseInt(percent * 100) + "% complete");
 };
 
 Choose = async () => {
