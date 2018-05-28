@@ -1,4 +1,4 @@
-# LOCAL WALLET
+# CLI
 
 #### Setup
 - `npm install`
@@ -10,7 +10,7 @@
 
 1. `setup` - Creates a directory in the users home directory where private keys will be stored.
 
-2. `new-wallet` - Creates a new ethereum wallet and stores it in the .eth-ssh directory
+2. `new-wallet` - Creates a new ethereum wallet and stores it in the .eth-local directory
 
 3. `start` - Starts an express server to allow communication with a browser.
 

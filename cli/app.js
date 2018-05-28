@@ -16,11 +16,11 @@ const PORT = 3210;
 clear();
 console.log(
 	chalk.yellow(
-		figlet.textSync('ETH-SSH', { horizontalLayout: 'full' })
+		figlet.textSync('ETH-LOCAL', { horizontalLayout: 'full' })
 	)
 );
 
-// CLI
+// Flags
 if (!process.argv[2]) {
 	console.log('Incorrect command...');
 	console.log('TODO: Use npm yargs');

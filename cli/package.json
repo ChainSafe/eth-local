@@ -1,5 +1,5 @@
 {
-  "name": "local",
+  "name": "eth-local-cli",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
