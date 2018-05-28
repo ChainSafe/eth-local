@@ -32,9 +32,9 @@ if (!process.argv[2]) {
 			Setup.Verify() ? process.exit(1) : null;
 			Setup.Setup();
 			break;
-		case 'new-wallet':
+		case 'wallet':
 			Setup.Verify() ? null : process.exit(1);
-			Wallet.createWallet();
+			Wallet();
 			break;
 		case 'start':
 			Setup.Verify() ? null : process.exit(1);

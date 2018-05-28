@@ -14,9 +14,16 @@ const createQuestions = [{
 		name: 'createConfirm',
 		type: 'confirm',
 		message: 'Please write down your mnemonic, confirm once written down.'
-	}];
+	},
+	{
+		name: 'choose',
+		type: 'list',
+		message: 'Please choose a wallet action:',
+		choices: ['Create Wallet', 'Get Balance']
+	},
+];
 
-createWallet = async () => {
+CreateWallet = async () => {
 	const resName = await inquirer.prompt(createQuestions[0]);
 	const wallet = ethers.Wallet.createRandom();
 	console.log(`mnemonic: ${wallet.mnemonic}`);
@@ -46,4 +53,18 @@ createWallet = async () => {
 	});
 };
 
-module.exports = { createWallet };
+Choose = async () => {
+	const res = await inquirer.prompt(createQuestions[2]);
+	switch (res.choose) {
+		case 'Create Wallet':
+			CreateWallet();
+			break;
+		case 'Get Balance':
+			console.log('Not supported yet!');
+			process.exit(1);
+			break;
+	}
+
+};
+
+module.exports = Choose;
