@@ -3,6 +3,7 @@ const express = require('express');
 const clear = require('clear');
 const chalk = require('chalk');
 const figlet = require('figlet');
+const program = require('commander');
 const app = express();
 
 // Relative imports
@@ -21,32 +22,23 @@ console.log(
 );
 
 // Flags
-if (!process.argv[2]) {
-	console.log('Incorrect command...');
-	console.log('TODO: Use npm yargs');
-	process.exit(1);
-} else {
-	// Always verify the correct directory structure is in place
-	switch (process.argv[2].toLowerCase()) {
-		case 'setup':
-			Setup.Verify() ? process.exit(1) : null;
-			Setup.Setup();
-			break;
-		case 'wallet':
-			Setup.Verify() ? null : process.exit(1);
-			Wallet();
-			break;
-		case 'start':
-			Setup.Verify() ? null : process.exit(1);
-			app.listen(PORT);
-			break;
-		default:
-			console.log('Incorrect command...');
-			console.log('TODO: Use npm yargs');
-			process.exit(1);
-			break;
-	}
-}
+program
+	.version('0.1.0')
+	.option('-s, --setup', 'Setup the wallet in your local drive.')
+	.option('-S, --start', 'Start app.')
+	.option('-w, --wallet', 'Wallet functionality.')
+	.parse(process.argv);
+
+// Show helper if no arguments are passed
+if (!process.argv.slice(2).length) program.help();
+// Verify the setup
+else Setup.Verify();
+
+// Execute functions based on arguments
+if (program.setup) Setup.Init();
+if (program.start) app.listen(PORT);
+if (program.wallet) Wallet();
+
 // Cross Origin middleware
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -59,3 +51,5 @@ app.get('/', (req, res) => res.send({connected: true}));
 app.get('/getAccounts', (req, res) => {
   console.log('Received request');
 });
+
+app.get('/req', (req, res) => {console.log('received')});

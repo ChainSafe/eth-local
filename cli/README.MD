@@ -4,7 +4,9 @@
 - `npm install`
 
 #### How To Use
-- `node app.js [cli arg]`
+- `./app.js <arg>`
+
+Note: executing `./app.js` will output a helper of all available commands.
 
 #### Available Arguments:
 
@@ -15,3 +17,8 @@
 3. `start` - Starts an express server to allow communication with a browser.
 
 
+TODO:
+- [x] Use a cli package
+- [] Add wallet decryption
+- [] Add ability to check balance
+- [] Add ability to send pre-signed tx

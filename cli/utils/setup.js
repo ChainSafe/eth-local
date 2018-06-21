@@ -6,10 +6,9 @@ Verify = () => {
 	console.log(`\nChecking if ${ETH_HOME} exists in ${HOME_DIR}...`);
 	if (!fs.existsSync(FULL_PATH)) {
 		console.log('\nDirectory structure not found! Please run setup');
-		return false;
+		process.exit(1);
 	} else {
 		console.log(`${ETH_HOME} found in ${HOME_DIR}!`);
-		return true;
 	}
 };
 
@@ -19,7 +18,7 @@ const question = [{
 	message: `Create directory ${ETH_HOME} in ${HOME_DIR}?`
 }];
 
-Setup = async () => {
+Init = async () => {
 	const res = await inquirer.prompt(question);
 	if (res.input) {
 		console.log(`Creating directory...`);
@@ -39,4 +38,4 @@ Setup = async () => {
 	}
 };
 
-module.exports = {Setup, Verify};
+module.exports = {Init, Verify};

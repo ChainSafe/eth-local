@@ -11,6 +11,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "clear": "^0.1.0",
+    "commander": "^2.15.1",
     "ethers": "^3.0.17",
     "express": "^4.16.3",
     "figlet": "^1.2.0",

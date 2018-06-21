@@ -33,6 +33,20 @@ const createQuestions = [{
 	},
 ];
 
+Choose = async () => {
+	const res = await inquirer.prompt(createQuestions[2]);
+	switch (res.choose) {
+		case 'Create Wallet':
+			CreateWallet();
+			break;
+		case 'Get Balance':
+			console.log('Not supported yet!');
+			process.exit(1);
+			break;
+	}
+
+};
+
 CreateWallet = async () => {
 	const resName = await inquirer.prompt(createQuestions[0]);
 	const wallet = ethers.Wallet.createRandom();
@@ -62,27 +76,15 @@ CreateWallet = async () => {
 			process.exit(1);
 		}
 		// success case, the file was saved
-		console.log(`Successfully created ${walletName} at ${filePath}`);
+		console.log(`\nSuccessfully created ${walletName} \n at ${filePath}`);
 		process.exit(1);
 	});
 };
 
 percentLoader = (percent) => {
-	console.log("Encrypting: " + parseInt(percent * 100) + "% complete");
-};
-
-Choose = async () => {
-	const res = await inquirer.prompt(createQuestions[2]);
-	switch (res.choose) {
-		case 'Create Wallet':
-			CreateWallet();
-			break;
-		case 'Get Balance':
-			console.log('Not supported yet!');
-			process.exit(1);
-			break;
-	}
-
+	process.stdout.clearLine();
+	process.stdout.cursorTo(0);
+	process.stdout.write(`Encrypting... ${parseInt(percent * 100)}%`);
 };
 
 module.exports = Choose;
