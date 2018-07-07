@@ -1,6 +1,6 @@
 # ETH-LOCAL
 
-#### NOTE: Currently only `./cli` is being developped. The `./web` dirrectory does not work yet.
+#### NOTE: Currently only `./cli` is being developed. The `./web` dirrectory does not work yet.
 
 `./cli` is the CLI as well as an express server that can be run optionally.
 
