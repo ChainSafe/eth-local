@@ -52,4 +52,12 @@ app.get('/getAccounts', (req, res) => {
   console.log('Received request');
 });
 
-app.get('/req', (req, res) => {console.log('received')});
+app.get('/req', (req, res) => {
+	const to = req.query.to
+	const value = req.query.value
+	console.log('received ' + to + " " + value );
+});
+
+app.get('/wallets', (req, res) => {
+	res.send(Wallet.getWallets());
+})
