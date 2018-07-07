@@ -35,20 +35,21 @@ SignTX = async (tx) => {
   // Choose wallet
   let walletRes = (await inquirer.prompt(questions[0]))[questions[0].name]
   // Get pw and load account
-  let passwordRes = await inquirer.prompt(questions[1])
+  let passwordRes = (await inquirer.prompt(questions[1])).password
+  debug('PW:', passwordRes)
   // Load signing key
   debug('Loading key from: ', wallets[walletRes])
-  // TODO: This doesnt seem to work
   let keyStore = JSON.parse(fs.readFileSync(wallets[walletRes]))
-  debug(keyStore)
-  let privateKey = new ethers.Wallet.fromEncryptedWallet(keyStore, passwordRes)
-  let signingKey = new ethers.SigningKey(privateKey)
+  debug('KeyStore: ', keyStore)
+  let privateKey = await ethers.Wallet.fromEncryptedWallet(keyStore, passwordRes)
+  debug('Private Key:', privateKey)
+  let signingKey = new ethers.SigningKey(privateKey.privateKey)
   // Encode tx
-  let txBytes = ethers.utils.toUtf8Bytes(message);
-  let txDigest = ethers.utils.keccak256(messageBytes);
+  let txBytes = ethers.utils.toUtf8Bytes(tx);
+  let txDigest = ethers.utils.keccak256(txBytes);
+  debug('txDigest:', txDigest)
   // Sign tx and return it
   return signingKey.signDigest(txDigest)
 }
 
-// DEBUG
-SignTX('abc').then((res) => console.log(res))
+module.exports = {SignTX}
