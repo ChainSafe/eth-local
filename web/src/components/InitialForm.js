@@ -37,6 +37,7 @@ class InitialForm extends Component {
   sendTransactionDetails() {
     console.log("sending transaction details");
     console.log("to: " + this.state.to + " value: " + this.state.value);
+    this.props.formChanged();
     // this.props.han
     // axios.get('http://localhost:3210/req', {
     //   params: {
@@ -46,12 +47,6 @@ class InitialForm extends Component {
     // });
   }
 
-  getContacts() {
-    // axios.get('http://localhost:3210/wallets')
-    //   .then(function(response){
-    //     console.log(response.data);
-    //   }); 
-  }
   
     render() {
       return (
