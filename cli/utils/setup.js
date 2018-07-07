@@ -6,7 +6,6 @@ Verify = () => {
 	console.log(`\nChecking if ${ETH_HOME} exists in ${HOME_DIR}...`);
 	if (!fs.existsSync(FULL_PATH)) {
 		console.log('\nDirectory structure not found! Please run setup');
-		process.exit(1);
 	} else {
 		console.log(`${ETH_HOME} found in ${HOME_DIR}!`);
 	}
