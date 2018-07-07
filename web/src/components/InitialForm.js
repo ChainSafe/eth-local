@@ -22,6 +22,7 @@ class InitialForm extends Component {
 
   updateTo(event) {
     this.setState({to: event.target.value})
+    this.props.formChanged();
   }
 
   updateValue(event) {
@@ -36,6 +37,7 @@ class InitialForm extends Component {
   sendTransactionDetails() {
     console.log("sending transaction details");
     console.log("to: " + this.state.to + " value: " + this.state.value);
+    // this.props.han
     // axios.get('http://localhost:3210/req', {
     //   params: {
     //     to: this.state.to,
@@ -70,8 +72,9 @@ class InitialForm extends Component {
                 onChange={this.updateValue.bind(this)}
             />
             </Form.Field>
-            <Button onClick={()=> this.sendTransactionDetails()}>Choose Wallets</Button>
-            <Button onClick={()=> this.getContacts()}>Display Wallets</Button>
+            <Button onClick={()=> this.sendTransactionDetails()}>Confirm</Button> 
+            {/* <Button onClick={()=> this.sendTransactionDetails()}>Choose Wallets</Button>
+            <Button onClick={()=> this.getContacts()}>Display Wallets</Button> */}
         </Form>
       );
     }

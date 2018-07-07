@@ -1,32 +1,31 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
+import InitialForm from './InitialForm';
 
-const styles = {
-    text : {
-        color: 'white'
-    }
-}
 class MainContainer extends Component {
 
-    // componentDidMount = () => {
-    //   axios.get('http://localhost:3210/req')
-    // }
-
-      constructor(props) {
-      super(props);
-      this.state = {
-         data: false 
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataEntered: false 
+    }
+    this.handleChange = this.handleChange.bind(this) 
   }
 
-  
-    render() {
-      return (
-        <div>
-          <p> gucci gang </p>
-        </div>
-      );
-    }
+  handleChange() {
+    console.log("we changed some input");
+  }
+
+
+  render() {
+    return (
+      <div>
+        {
+          this.state.dataEntered ?  <p> gucci gang </p> : <InitialForm formChanged={this.handleChange} />
+        }
+      </div>
+    );
+  }
   }
   
   export default MainContainer;

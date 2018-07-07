@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import InitialForm from './components/InitialForm';
 import Loading from './components/Loading';
-
+import MainContainer from './components/MainContainer';
 
 class App extends Component {
 
@@ -19,14 +19,19 @@ class App extends Component {
     }
   }
 
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.setState({ data: true })  
+    }, 2000);
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           { 
-            this.state.data ? <Loading /> : <InitialForm />
-          }        
-          <h1 className="App-title">Access your encrypted wallets</h1>
+            this.state.data ? <MainContainer /> : <Loading /> 
+          }                  
         </header>
       </div>
     );
