@@ -8,7 +8,7 @@ const { FULL_PATH } = require('./constants');
 const createQuestions = [{
 		name: 'walletName',
 		type: 'input',
-		message: `Desire wallet name? (default public address)`
+		message: `Desired wallet name? (default public address)`
 	},
 	{
 		name: 'createConfirm',
