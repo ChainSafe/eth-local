@@ -14,11 +14,13 @@ class MainContainer extends Component {
     this.state = {
       currentState: INITIAL_FORM,
       to: "",
-      value: "" 
+      value: "",
+      chosenWallet: "" 
     }
     this.handleChange = this.handleChange.bind(this) 
     this.updateTo = this.updateTo.bind(this) 
     this.updateValue = this.updateValue.bind(this) 
+    this.selectedWallet = this.selectedWallet.bind(this)
   }
 
   handleChange(data) {
@@ -45,11 +47,16 @@ class MainContainer extends Component {
     this.setState({value: valueVal })
   }
 
+  selectedWallet(chosenWalletAddress) {
+    console.log("wallet that was chosen: " + chosenWalletAddress);
+    this.setState({chosenWallet: chosenWalletAddress})
+  }
+
   render() {
       if(this.state.currentState == INITIAL_FORM) {
         return <InitialForm changeTo={this.updateTo} changeValue={this.updateValue} formChanged={this.handleChange} />
       } else if (this.state.currentState == WALLETS_PAGE) {
-        return <Wallets formChanged={this.handleChange} />
+        return <Wallets  selectWallet={this.selectedWallet} formChanged={this.handleChange} />
       } else {
         return <div> last </div>
       }

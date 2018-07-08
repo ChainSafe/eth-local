@@ -10,13 +10,13 @@ class Wallets extends Component {
         this.state = {
             wallets: [],
             loading: false,
+            selectedWallet: ""
         }
     }
 
     componentDidMount = () => {      
         var result = this.getWallets();
         result.then((resultData) => {
-            // console.log(resultData)
             this.setState({loading: true}) 
         });
     }
@@ -30,22 +30,30 @@ class Wallets extends Component {
       return query;
     }
 
+    handleClick = (x) => {
+        console.log(x);
+        this.setState({ selectedWallet: x })
+        this.props.selectWallet(x);
+        this.props.formChanged();
+    };
+
     renderList() {
     
         var listItems = [];
 
-         for(var key in this.state.wallets) {
-            console.log(key);
-            listItems.push(key)          
+         for(var key in this.state.wallets) {       
+            listItems.push( {"key":key, "address": this.state.wallets[key].split(" - ")[1]} );          
          }
 
         return (
-            <List divided verticalAlign='middle'>                
+            <List >                     
                 {
                     listItems.map((elem) =>  
-                        <List.Item key={elem} > 
-                            <List.Content floated='right'> Select </List.Content>  
-                            <List.Content> {elem}  </List.Content>  
+                        <List.Item key={elem.address}> 
+                            <List.Content floated='right'> 
+                                <Button onClick={() => this.handleClick(elem.address)} > Select </Button>
+                            </List.Content>  
+                            <List.Content> {elem.key}  </List.Content>  
                         </List.Item>
                     )
                 }
@@ -58,7 +66,7 @@ class Wallets extends Component {
       return (
         <div>         
             {
-                this.state.loading ? null: <Loading />
+                this.state.loading ? <h3>Choose A Wallet For Payment</h3> : <Loading />
             }
             {
                 this.state.loading == true && this.state.wallets.length != 0 
