@@ -26,7 +26,6 @@ class MainContainer extends Component {
 
   handleChange(data) {
     console.log("we changed some input " + this.state.currentState);
-
     if(this.state.currentState == INITIAL_FORM){     
       this.setState({currentState: WALLETS_PAGE})
     } else if(this.state.currentState == WALLETS_PAGE) {
@@ -51,7 +50,6 @@ class MainContainer extends Component {
   selectedWallet(chosenWalletAddress) {
     console.log("wallet that was chosen: " + chosenWalletAddress + "\n the value is " + this.state.value + " \n" + this.state.to);
     this.setState({chosenWallet: chosenWalletAddress})
-
     axios.post('http://localhost:3210/transactionDetails', {
       to: this.state.to,
       from: chosenWalletAddress,
@@ -63,10 +61,7 @@ class MainContainer extends Component {
     .catch(function (error) {
       console.log(error);
     });
-
   }
-
- 
 
   render() {
       if(this.state.currentState == INITIAL_FORM) {
