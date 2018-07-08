@@ -17,4 +17,5 @@ const start = (params) => {
   });
 }
 
+//TODO: REMOVE, ONLY FOR TESTING
 start()
