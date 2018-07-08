@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import InitialForm from './InitialForm';
 import Wallets from './Wallets';
+import axios from 'axios';
 
 const INITIAL_FORM = "initialForm";
 const WALLETS_PAGE = "contactsComponent";
@@ -48,9 +49,24 @@ class MainContainer extends Component {
   }
 
   selectedWallet(chosenWalletAddress) {
-    console.log("wallet that was chosen: " + chosenWalletAddress);
+    console.log("wallet that was chosen: " + chosenWalletAddress + "\n the value is " + this.state.value + " \n" + this.state.to);
     this.setState({chosenWallet: chosenWalletAddress})
+
+    axios.post('http://localhost:3210/transactionDetails', {
+      to: this.state.to,
+      from: chosenWalletAddress,
+      value: this.state.value
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
+
+ 
 
   render() {
       if(this.state.currentState == INITIAL_FORM) {
