@@ -5,6 +5,8 @@ const chalk = require('chalk');
 const figlet = require('figlet');
 const program = require('commander');
 const app = express();
+var bodyParser = require('body-parser')
+
 
 // Relative imports
 const Setup = require('./utils/setup');
@@ -12,6 +14,7 @@ const Wallet = require('./utils/wallet');
 
 // Constants
 const PORT = 3210;
+app.use(bodyParser.json())
 
 // Clear terminal & show message.
 clear();
@@ -60,4 +63,13 @@ app.get('/req', (req, res) => {
 
 app.get('/wallets', (req, res) => {
 	res.send(Wallet.getWallets());
+})
+
+app.post('/transactionDetails', (req, res) => {
+	const from = req.body.from
+	const to = req.body.to
+	const value = req.body.value;
+	console.log("to: " + to);
+	console.log("from: " + from);
+	console.log("value: " + value);
 })
