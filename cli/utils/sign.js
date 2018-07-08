@@ -15,19 +15,6 @@ const questions = [
     message: 'Enter password'
 }]
 
-// Parses list of wallet names from their filenames
-const getWallets = () => {
-  let files = fs.readdirSync(FULL_PATH);
-  let wallets = {}
-  files.map((file, i) => {
-    debug(`Found file: ${file}`)
-    // Get name from 'name - address'
-    wallets[file.split('-')[0].trim()] = FULL_PATH + '/' + file
-  })
-  debug('Wallets found:', wallets)
-  return wallets
-}
-
 SignTX = async (tx) => {
   // Update wallet list
   let wallets = getWallets()

@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const clear = require('clear');
 const { FULL_PATH } = require('./constants');
+const {log, debug} = require('./logger')
 
 const createQuestions = [{
 		name: 'walletName',
@@ -87,4 +88,16 @@ percentLoader = (percent) => {
 	process.stdout.write(`Encrypting... ${parseInt(percent * 100)}%`);
 };
 
-module.exports = Choose;
+getWallets = () => {
+	let files = fs.readdirSync(FULL_PATH);
+	let wallets = {}
+	files.map((file, i) => {
+	  debug(`Found file: ${file}`)
+	  // Get name from 'name - address'
+	  wallets[file.split('-')[0].trim()] = FULL_PATH + '/' + file
+	})
+	debug('Wallets found:', wallets)
+	return wallets
+  }
+
+module.exports = { Choose, getWallets } ;
