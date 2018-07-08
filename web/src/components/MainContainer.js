@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import InitialForm from './InitialForm';
-import Contacts from './Contacts';
+import Wallets from './Wallets';
 
 const INITIAL_FORM = "initialForm";
-const CONTACTS_PAGE = "contactsComponent";
+const WALLETS_PAGE = "contactsComponent";
 const TRANSACTION_SUMMARY = "transactionSummary";
 const ETHERSCAN_CONFIRMATION = "etherscanConfirmation";
 
@@ -25,8 +25,8 @@ class MainContainer extends Component {
     console.log("we changed some input " + this.state.currentState);
 
     if(this.state.currentState == INITIAL_FORM){     
-      this.setState({currentState: CONTACTS_PAGE})
-    } else if(this.state.currentState == CONTACTS_PAGE) {
+      this.setState({currentState: WALLETS_PAGE})
+    } else if(this.state.currentState == WALLETS_PAGE) {
       this.setState({currentState: TRANSACTION_SUMMARY})
     } else if(this.state.currentState == TRANSACTION_SUMMARY) {
       this.setState({currentState: ETHERSCAN_CONFIRMATION})
@@ -48,8 +48,8 @@ class MainContainer extends Component {
   render() {
       if(this.state.currentState == INITIAL_FORM) {
         return <InitialForm changeTo={this.updateTo} changeValue={this.updateValue} formChanged={this.handleChange} />
-      } else if (this.state.currentState == CONTACTS_PAGE) {
-        return <Contacts formChanged={this.handleChange} />
+      } else if (this.state.currentState == WALLETS_PAGE) {
+        return <Wallets formChanged={this.handleChange} />
       } else {
         return <div> last </div>
       }

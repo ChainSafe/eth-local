@@ -37,7 +37,7 @@ else Setup.Verify();
 // Execute functions based on arguments
 if (program.setup) Setup.Init();
 if (program.start) app.listen(PORT);
-if (program.wallet) Wallet();
+if (program.wallet) Wallet.Choose();
 
 // Cross Origin middleware
 app.use(function(req, res, next) {
