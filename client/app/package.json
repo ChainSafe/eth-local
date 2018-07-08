@@ -1,0 +1,14 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+	"start": "electron ."
+  },
+  "author": "David Ansermino <david@chainsafe.io>",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^2.0.4"
+  }
+}
