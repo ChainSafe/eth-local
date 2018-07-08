@@ -11,6 +11,7 @@ var bodyParser = require('body-parser')
 // Relative imports
 const Setup = require('./utils/setup');
 const Wallet = require('./utils/wallet');
+const Sign = require('./utils/sign');
 
 // Constants
 const PORT = 3210;
@@ -68,18 +69,16 @@ app.get('/wallets', (req, res) => {
 // used for Web3 tx signing
 var node_endpoint = "http://127.0.0.1:8545"
 var Web3 = require("web3");
-var EthTx = require("ethereumjs-tx");
 var web3 = new Web3(new Web3.providers.HttpProvider(node_endpoint));
 var addr1 = "0x781eD7a40BE08584fCd086e3e8337154B20B4e3B";  // test from account
-var pKey1 = "358be44145ad16a1add8622786bef07e0b00391e072855a5667eb3c78b9d3803"; // test pkey
-var pKey1x = new Buffer(pKey1, 'hex')
 
 app.post('/transactionDetails', (req, res) => {
     const from = req.body.from
     const to = req.body.to
     const value = req.body.value;
+
+    //TODO: find way to get wallet address here so that we can getTransactionCount to set nonce
     var rawTx = {};
-    //todo: get from address from Wallet
     rawTx.nonce = web3.utils.toHex(web3.eth.getTransactionCount(addr1));
     rawTx.to = to;
     rawTx.gasPrice = web3.utils.toHex(31000000000);
@@ -87,20 +86,12 @@ app.post('/transactionDetails', (req, res) => {
     rawTx.value = web3.utils.toHex(web3.utils.toWei(value, 'ether'));
     rawTx.data = "";
 
-    var tx = new EthTx(rawTx);
-    tx.sign(pKey1x);
-    var serializedTx = `0x${tx.serialize().toString('hex')}`
+    Sign.SignTX(rawTx).then((val) => {
+        console.log('res: ', val);
+    });
 
-    web3.eth.sendSignedTransaction(serializedTx, (error, data) => {
-        if(!error) {
-            console.log("data: ", data);
-        } else {
-            console.log("error: ", error);
-        }
-    })
-	console.log("to: " + to);
+    console.log("to: " + to);
 	console.log("from: " + from);
 	console.log("value: " + value);
 	console.log("rawTX: ", rawTx);
-	console.log("serializedTx ", serializedTx);
 })
