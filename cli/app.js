@@ -73,21 +73,25 @@ var web3 = new Web3(new Web3.providers.HttpProvider(node_endpoint));
 var addr1 = "0x781eD7a40BE08584fCd086e3e8337154B20B4e3B";  // test from account
 
 app.post('/transactionDetails', (req, res) => {
-    const from = req.body.from
+    //const from = req.body.from
+    //TODO: determine why req.body.from is undefined for me (ed)
+    const from = '0xd9Ccb5FFd474b7830e41a03E1675084b3e27DBd4';
     const to = req.body.to
     const value = req.body.value;
+    //TODO: Find better way of getting user password
+    const password = 'd7bhWPzH0OCTrC326EQz';
 
-    //TODO: find way to get wallet address here so that we can getTransactionCount to set nonce
     var rawTx = {};
-    rawTx.nonce = web3.utils.toHex(web3.eth.getTransactionCount(addr1));
+    rawTx.nonce = web3.utils.toHex(web3.eth.getTransactionCount(from));
     rawTx.to = to;
     rawTx.gasPrice = web3.utils.toHex(31000000000);
     rawTx.gasLimit = web3.utils.toHex(21000);
     rawTx.value = web3.utils.toHex(web3.utils.toWei(value, 'ether'));
     rawTx.data = "";
 
-    Sign.SignTX(rawTx).then((val) => {
-        console.log('res: ', val);
+
+    Sign.SignTX(rawTx, from, password).then((val) => {
+        console.log('signed digest: ', val);
     });
 
     console.log("to: " + to);
