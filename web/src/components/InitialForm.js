@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Checkbox, Form, Header, Container, Icon } from 'semantic-ui-react'
 
 const styles = {
     text : {
-        color: 'white'
+        color: 'black'
+    }, 
+    mainContainer : {
+      paddingTop: 30
     }
 }
 class InitialForm extends Component {
-
-    // componentDidMount = () => {
-    //   axios.get('http://localhost:3210/req')
-    // }
 
       constructor(props) {
       super(props);
       this.state = {
         to: "",
-        value: 0
+        value: ""
       }
   }
 
@@ -35,45 +34,63 @@ class InitialForm extends Component {
 
   sendTransactionDetails() {
     console.log("sending transaction details");
-    //console.log("to: " + this.state.to + " value: " + this.state.value);
-  
     this.props.changeTo(this.state.to);
     this.props.changeValue(this.state.value);
     this.props.formChanged();
-
-    // this.props.han
-    // axios.get('http://localhost:3210/req', {
-    //   params: {
-    //     to: this.state.to,
-    //     value: this.state.value
-    //   }
-    // });
   }
 
-  
     render() {
       return (
-        <Form>
-            <Form.Field>
-            <label style={styles.text} >To</label>
-            <input     
-                value={this.state.to}
-                placeholder='Recipient Address' 
-                onChange={this.updateTo.bind(this)}
+        <div style={styles.mainContainer}>
+          <Container text>
+            <Header
+              as='h3'
+              content='Initiate Payment'
+              inverted
+              style={{
+                fontSize: '2em',
+                fontWeight: 'normal',
+                marginBottom: 0,               
+                color: 'black'
+              }}
             />
-            </Form.Field>
-            <Form.Field>
-            <label style={styles.text}>Value</label>
-            <input 
-                placeholder='Value' 
-                value={this.state.value}
-                onChange={this.updateValue.bind(this)}
-            />
-            </Form.Field>
-            <Button onClick={()=> this.sendTransactionDetails()}>Confirm</Button> 
-            {/* <Button onClick={()=> this.sendTransactionDetails()}>Choose Wallets</Button>
-            <Button onClick={()=> this.getContacts()}>Display Wallets</Button> */}
-        </Form>
+            <Header
+              as='h4'
+              content='Choose who and how much you want to pay.'
+              inverted
+              style={{
+                fontSize:  '1.5em',
+                fontWeight: 'normal',                
+                color: 'black',
+                paddingBottom: '20px'
+              }}
+            />          
+
+            <Form>
+              <Form.Field>
+              {/* <label style={styles.text} >To</label> */}
+              <input     
+                  value={this.state.to}
+                  placeholder='Recipient Address' 
+                  onChange={this.updateTo.bind(this)}
+              />
+              </Form.Field>
+              <Form.Field>
+              {/* <label style={styles.text}>Value</label> */}
+              <input 
+                  placeholder='Enter Ether Amount' 
+                  value={this.state.value}
+                  onChange={this.updateValue.bind(this)}
+              />
+              </Form.Field>
+              <Button onClick={()=> this.sendTransactionDetails()}>Confirm</Button>            
+          </Form>
+
+          </Container>
+
+
+ 
+        </div>
       );
     }
   }

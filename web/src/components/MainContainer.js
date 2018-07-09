@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import InitialForm from './InitialForm';
 import Wallets from './Wallets';
+import TransactionSummary from './TransactionSummary';
 import axios from 'axios';
 
 const INITIAL_FORM = "initialForm";
@@ -26,7 +27,6 @@ class MainContainer extends Component {
 
   handleChange(data) {
     console.log("we changed some input " + this.state.currentState);
-
     if(this.state.currentState == INITIAL_FORM){     
       this.setState({currentState: WALLETS_PAGE})
     } else if(this.state.currentState == WALLETS_PAGE) {
@@ -51,7 +51,6 @@ class MainContainer extends Component {
   selectedWallet(chosenWalletAddress) {
     console.log("wallet that was chosen: " + chosenWalletAddress + "\n the value is " + this.state.value + " \n" + this.state.to);
     this.setState({chosenWallet: chosenWalletAddress})
-
     axios.post('http://localhost:3210/transactionDetails', {
       to: this.state.to,
       from: chosenWalletAddress,
@@ -63,18 +62,15 @@ class MainContainer extends Component {
     .catch(function (error) {
       console.log(error);
     });
-
   }
-
- 
 
   render() {
       if(this.state.currentState == INITIAL_FORM) {
         return <InitialForm changeTo={this.updateTo} changeValue={this.updateValue} formChanged={this.handleChange} />
       } else if (this.state.currentState == WALLETS_PAGE) {
-        return <Wallets  selectWallet={this.selectedWallet} formChanged={this.handleChange} />
+        return <Wallets selectWallet={this.selectedWallet} formChanged={this.handleChange} />
       } else {
-        return <div> last </div>
+        return <TransactionSummary toAddress={this.state.to} fromAddress={this.state.chosenWallet} sendAmount={this.state.value} />
       }
     }
   }

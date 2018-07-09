@@ -3,6 +3,16 @@ import { Button, Checkbox, Form, List } from 'semantic-ui-react'
 import axios from 'axios';
 import Loading from './Loading';
 
+const styles = {
+    text : {
+        color: 'black',
+        padding: 15
+    }, 
+    mainContainer : {
+      paddingTop: 30
+    }
+}
+
 class Wallets extends Component {
 
     constructor(props) {
@@ -49,7 +59,7 @@ class Wallets extends Component {
             <List >                     
                 {
                     listItems.map((elem) =>  
-                        <List.Item key={elem.address}> 
+                        <List.Item style={styles.text} key={elem.address}> 
                             <List.Content floated='right'> 
                                 <Button onClick={() => this.handleClick(elem.address)} > Select </Button>
                             </List.Content>  
@@ -64,9 +74,9 @@ class Wallets extends Component {
     render() {
 
       return (
-        <div>         
+        <div style={styles.mainContainer}>         
             {
-                this.state.loading ? <h3>Choose A Wallet For Payment</h3> : <Loading />
+                this.state.loading ? <h3 style={styles.text}>Choose A Wallet For Payment</h3> : <Loading />
             }
             {
                 this.state.loading == true && this.state.wallets.length != 0 
