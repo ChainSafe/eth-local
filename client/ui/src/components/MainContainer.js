@@ -1,24 +1,45 @@
 import React, { Component } from 'react'
+import { Button, Checkbox, Form } from 'semantic-ui-react'
+
+const styles = {
+  text : {
+      color: 'white'
+  }
+}
 
 class MainContainer extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      dataEntered: false
+      password: ""
     }
-    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange() {
-    console.log("we changed some input");
+  updatePassword(event) {
+    console.log("Password " + event.target.value);
+    this.setState({password: event.target.value })
+  }
+
+  submitPassword() {
+    console.log(this.state.password);
   }
 
 
   render() {
     return (
       <div>
-        <h1>HEEEEY</h1>
+        <Form>
+          <Form.Field>
+          <label style={styles.text} >Password</label>
+          <input     
+              value={this.state.password}
+              placeholder='password' 
+              onChange={this.updatePassword.bind(this)}
+          />
+          </Form.Field>
+          <Button onClick={()=> this.submitPassword()}>Confirm</Button>    
+        </Form>
       </div>
     );
   }
