@@ -1,4 +1,4 @@
-# ETH-LOCAL
+# eth-local
 
 #### NOTE: Currently only `./cli` is being developed. The `./web` dirrectory does not work yet.
 
@@ -6,7 +6,7 @@
 
 `./web` is a create-react-app and will serve as testing ground for the npm module that will interact with the express server in the CLI.
 
-The purpose of ETH-LOCAL is to offer a standardized way to store your keystore files on your local machine. 
+The purpose of eth-local is to offer a standardized way to store your keystore files on your local machine. 
 
 The core functionality of this application is the ability of the cli to safely transmit pre-signed tx to a website without the need of having metamask installed on the browser. The cli runs a simple HTTP server which allows the npm module to connect to it.
 
