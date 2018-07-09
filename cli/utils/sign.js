@@ -8,8 +8,8 @@ const { HOME_DIR, ETH_HOME, FULL_PATH } = require('./constants');
 SignTX = async (tx, walletAddress, password) => {
   // Update wallet list
   let wallets = getWallets()
-  debug('Loading key from: ', wallets[walletAddress])
-  let keyStore = JSON.parse(fs.readFileSync(wallets[walletAddress]))
+  debug('Loading key from: ', wallets['second wallet'])
+  let keyStore = JSON.parse(fs.readFileSync(wallets['second wallet']))
   debug('KeyStore: ', keyStore)
   let privateKey = await ethers.Wallet.fromEncryptedWallet(keyStore, password)
   debug('Private Key:', privateKey)

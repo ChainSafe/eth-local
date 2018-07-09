@@ -79,7 +79,7 @@ app.post('/transactionDetails', (req, res) => {
     const to = req.body.to
     const value = req.body.value;
     //TODO: Find better way of getting user password
-    const password = 'd7bhWPzH0OCTrC326EQz';
+    const password = 'gucci';
 
     var rawTx = {};
     rawTx.nonce = web3.utils.toHex(web3.eth.getTransactionCount(from));
@@ -92,10 +92,12 @@ app.post('/transactionDetails', (req, res) => {
 
     Sign.SignTX(rawTx, from, password).then((val) => {
         console.log('signed digest: ', val);
+    }).catch(function(error) {
+      console.log(error);
     });
 
     console.log("to: " + to);
-	console.log("from: " + from);
-	console.log("value: " + value);
-	console.log("rawTX: ", rawTx);
+    console.log("from: " + from);
+    console.log("value: " + value);
+    console.log("rawTX: ", rawTx);
 })
