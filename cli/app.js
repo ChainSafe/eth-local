@@ -6,12 +6,16 @@ const figlet = require('figlet');
 const program = require('commander');
 const app = express();
 var bodyParser = require('body-parser')
+const BN = require('ethereumjs-util').BN
 
 
 // Relative imports
 const Setup = require('./utils/setup');
 const Wallet = require('./utils/wallet');
 const Sign = require('./utils/sign');
+
+
+let signedTransactionObject;
 
 // Constants
 const PORT = 3210;
@@ -77,7 +81,7 @@ app.post('/transactionDetails', (req, res) => {
     //TODO: determine why req.body.from is undefined for me (ed)
     const from = '0xd9Ccb5FFd474b7830e41a03E1675084b3e27DBd4';
     const to = req.body.to
-    const value = req.body.value;
+    const value = new BN(req.body.value);
     //TODO: Find better way of getting user password
     const password = 'gucci';
 
@@ -91,7 +95,8 @@ app.post('/transactionDetails', (req, res) => {
 
 
     Sign.SignTX(rawTx, from, password).then((val) => {
-        console.log('signed digest: ', val);
+        console.log('signed digest: ', val);   
+        signedTransactionObject = val;   
     }).catch(function(error) {
       console.log(error);
     });
@@ -100,4 +105,9 @@ app.post('/transactionDetails', (req, res) => {
     console.log("from: " + from);
     console.log("value: " + value);
     console.log("rawTX: ", rawTx);
+})
+
+app.get("/getSignedTransaction", (req, res) => {
+  console.log(signedTransactionObject);
+  res.send(signedTransactionObject);
 })
