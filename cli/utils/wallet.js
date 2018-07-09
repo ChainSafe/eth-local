@@ -94,7 +94,7 @@ getWallets = () => {
 	files.map((file, i) => {
 	  debug(`Found file: ${file}`)
 	  // Get name from 'name - address'
-	  wallets[file.split('-')[0].trim()] = FULL_PATH + '/' + file
+	  wallets[file.split('-')[1].trim()] = FULL_PATH + '/' + file
 	})
 	debug('Wallets found:', wallets)
 	return wallets

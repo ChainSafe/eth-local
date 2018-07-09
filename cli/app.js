@@ -7,12 +7,15 @@ const program = require('commander');
 const app = express();
 var bodyParser = require('body-parser')
 const BN = require('ethereumjs-util').BN
+const {log, debug} = require('./utils/logger')
+
 
 
 // Relative imports
 const Setup = require('./utils/setup');
 const Wallet = require('./utils/wallet');
 const Sign = require('./utils/sign');
+const spawn = require('./utils/spawn')
 
 
 let signedTransactionObject;
@@ -76,14 +79,17 @@ var Web3 = require("web3");
 var web3 = new Web3(new Web3.providers.HttpProvider(node_endpoint));
 var addr1 = "0x781eD7a40BE08584fCd086e3e8337154B20B4e3B";  // test from account
 
-app.post('/transactionDetails', (req, res) => {
+app.post('/transactionDetails', async(req, res) => {
     //const from = req.body.from
     //TODO: determine why req.body.from is undefined for me (ed)
-    const from = '0xd9Ccb5FFd474b7830e41a03E1675084b3e27DBd4';
+    debug('req.body.from:', req.body.from)
+    const from = req.body.from//'0xd9Ccb5FFd474b7830e41a03E1675084b3e27DBd4';
     const to = req.body.to
     const value = new BN(req.body.value);
     //TODO: Find better way of getting user password
-    const password = 'gucci';
+    const password = 'password';
+
+    let realPW = await spawn.start()
 
     var rawTx = {};
     rawTx.nonce = web3.utils.toHex(web3.eth.getTransactionCount(from));

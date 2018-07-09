@@ -3,13 +3,15 @@ const ethers = require('ethers')
 const fs = require('fs')
 const {log, debug} = require('./logger')
 const { HOME_DIR, ETH_HOME, FULL_PATH } = require('./constants');
+const {getWallets} = require('./wallet')
 
 
 SignTX = async (tx, walletAddress, password) => {
+  debug('Wallet addr:', walletAddress)
   // Update wallet list
   let wallets = getWallets()
-  debug('Loading key from: ', wallets['second wallet'])
-  let keyStore = JSON.parse(fs.readFileSync(wallets['second wallet']))
+  debug('Loading key from: ', wallets[walletAddress])
+  let keyStore = JSON.parse(fs.readFileSync(wallets[walletAddress]))
   debug('KeyStore: ', keyStore)
   let privateKey = await ethers.Wallet.fromEncryptedWallet(keyStore, password)
   debug('Private Key:', privateKey)

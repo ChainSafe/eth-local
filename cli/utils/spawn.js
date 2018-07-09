@@ -10,12 +10,14 @@ const { spawn } = require('child_process', {
 
 // Open app and pass params
 const start = (params) => {
-  const child = spawn('../client/app/node_modules/electron/dist/electron', ['../client/app', 'david']);
+  new Promise((resolve, reject) => {
+    const child = spawn('../client/app/node_modules/electron/dist/electron', ['../client/app', 'david']);
 
-  child.stdout.on('data', (data) => {
-    console.log(data.toString());
-  });
+    child.stdout.on('data', (data) => {
+      console.log(data.toString());
+      resolve(data.toString())
+    });
+  })
 }
 
-//TODO: REMOVE, ONLY FOR TESTING
-start()
+module.exports = {start}
