@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import InitialForm from './InitialForm';
 import Wallets from './Wallets';
+import TransactionSummary from './TransactionSummary';
 import axios from 'axios';
 
 const INITIAL_FORM = "initialForm";
@@ -67,9 +68,9 @@ class MainContainer extends Component {
       if(this.state.currentState == INITIAL_FORM) {
         return <InitialForm changeTo={this.updateTo} changeValue={this.updateValue} formChanged={this.handleChange} />
       } else if (this.state.currentState == WALLETS_PAGE) {
-        return <Wallets  selectWallet={this.selectedWallet} formChanged={this.handleChange} />
+        return <Wallets selectWallet={this.selectedWallet} formChanged={this.handleChange} />
       } else {
-        return <div> last </div>
+        return <TransactionSummary toAddress={this.state.to} fromAddress={this.state.chosenWallet} sendAmount={this.state.value} />
       }
     }
   }

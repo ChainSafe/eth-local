@@ -63,7 +63,6 @@ class InitialForm extends Component {
                 fontWeight: 'normal',                
                 color: 'black',
                 paddingBottom: '20px'
-
               }}
             />          
 
