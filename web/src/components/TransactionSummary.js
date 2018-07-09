@@ -26,14 +26,6 @@ class TransactionSummary extends Component {
         }
     }
 
-    showSigned() {
-      var query = axios.get('http://localhost:3210/getSignedTransaction')
-      .then((response) => {          
-         console.log(response.data);        
-          return response.data; 
-      });
-      return query;
-    }
 
     sendTransaction = () => {
         const amountString = '' + this.props.sendAmount  + '';
@@ -54,6 +46,8 @@ class TransactionSummary extends Component {
             console.log("receiving account Balance: " + etherString);
           });
         });
+
+
       }
     
 
@@ -63,8 +57,7 @@ class TransactionSummary extends Component {
             <h3 style={styles.text} > To: {this.props.toAddress}  </h3>
             <h3 style={styles.text}> From: {this.props.fromAddress}  </h3>
             <h3 style={styles.text}> Value: {this.props.sendAmount}  </h3>    
-            <Button onClick={()=> this.sendTransaction()}>Confirm and Send</Button>    
-            <Button onClick={()=> this.showSigned()}>Show Signed Transaction</Button>   
+            <Button onClick={()=> this.props.formChanged()}>Confirm and Send</Button>                 
           </div>
       );
     }

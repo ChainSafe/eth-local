@@ -4,6 +4,7 @@ import InitialForm from './InitialForm';
 import Wallets from './Wallets';
 import TransactionSummary from './TransactionSummary';
 import axios from 'axios';
+import VerefiedHash from './VerefiedHash';
 
 const INITIAL_FORM = "initialForm";
 const WALLETS_PAGE = "contactsComponent";
@@ -69,8 +70,10 @@ class MainContainer extends Component {
         return <InitialForm changeTo={this.updateTo} changeValue={this.updateValue} formChanged={this.handleChange} />
       } else if (this.state.currentState == WALLETS_PAGE) {
         return <Wallets selectWallet={this.selectedWallet} formChanged={this.handleChange} />
+      } else if (this.state.currentState == TRANSACTION_SUMMARY) {
+        return <TransactionSummary toAddress={this.state.to} fromAddress={this.state.chosenWallet} sendAmount={this.state.value} formChanged={this.handleChange}/>
       } else {
-        return <TransactionSummary toAddress={this.state.to} fromAddress={this.state.chosenWallet} sendAmount={this.state.value} />
+        return <VerefiedHash formChanged={this.handleChange}/>
       }
     }
   }
