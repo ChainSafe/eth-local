@@ -7,6 +7,10 @@ The purpose of eth-local is to offer a standardized way to store your keystore f
 The core functionality of this application is the ability of the cli to safely transmit pre-signed tx to a website without the need of having Metamask installed on the browser. The cli runs a simple HTTP server which allows the npm module to connect to it.
 
 
+
+![Alt Text](https://imgur.com/yPDD97F.png)
+
+
 `./cli` is the CLI as well as an express server that can be run optionally.
 
 `./web` is a create-react-app and will serve as testing ground for the npm module that will interact with the express server in the CLI.
