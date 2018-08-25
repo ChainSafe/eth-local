@@ -17,7 +17,16 @@ The core functionality of this application is the ability of the cli to safely t
 
 `./client` is intended to be a daemon (currently just a node app) that initiates an electron app to prompt the user for their password. 
 
-Features:
+## Running
+
+1. Start the cli by running `node cli/app.js`. You will prompted with all availible options. In necessary initiate keystore and create a key pair.
+
+2. Start the dev web app server by running `cd web && npm start`.
+
+3. Following the instructions in the dev web app will initiate the elctron prompt.
+
+
+## Features
 
 - [x] Generate a wallet
 - [x] Encrypt a wallet
@@ -27,5 +36,24 @@ Features:
 - [ ] Transfer eth
 - [ ] Electron prompt
 - [ ] Transaction signing
+
+## Details
+
+### Cli
+- Uses the spawn() library to launch electron prompt (see `cli/utils/spawn.js`)
+- stdin/out are supposed to provide data to and from the electron prompt (WIP)
+
+### Client
+
+- `/ui` is the UI for the electron app, standard create-react-app
+- `/app` is the deployable part, which includes a production build of `ui/` (TODO: Setup linkage or change structure so we don't have to copy build from `ui/`.
+- `app/main.js` is the electron app. This is where you can configure it.
+- Launching the electron app on its own may be troublesome, you must run it with electron (eg. `electron main.js`)
+
+
+### Web
+- This is just a front end for testing purposes
+
+
 
 Interested in lending a hand? Reach out to `david at chainsafe dot io`:)
