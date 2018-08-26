@@ -19,7 +19,7 @@ The core functionality of this application is the ability of the cli to safely t
 
 ## Running
 
-1. Start the cli by running `npm i && node cli/app.js`. You will prompted with all availible options. In necessary initiate keystore and create a key pair.
+1. Start the cli by running `cd cli && npm i && node app.js`. You will prompted with all availible options. In necessary initiate keystore and create a key pair.
 
 2. Start the dev web app server by running `cd web && npm i && npm start`.
 
