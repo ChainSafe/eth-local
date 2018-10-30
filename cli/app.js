@@ -5,24 +5,22 @@ const chalk = require('chalk');
 const figlet = require('figlet');
 const program = require('commander');
 const app = express();
-var bodyParser = require('body-parser')
-const BN = require('ethereumjs-util').BN
-const {log, debug} = require('./utils/logger')
-
-
+const bodyParser = require('body-parser');
+const BN = require('ethereumjs-util').BN;
+const {log, debug} = require('./utils/logger');
 
 // Relative imports
 const Setup = require('./utils/setup');
 const Wallet = require('./utils/wallet');
 const Sign = require('./utils/sign');
-const spawn = require('./utils/spawn')
+const spawn = require('./utils/spawn');
 
 
 let signedTransactionObject;
 
 // Constants
-const PORT = 3210;
-app.use(bodyParser.json())
+let PORT = 3210;
+app.use(bodyParser.json());
 
 // Clear terminal & show message.
 clear();
@@ -47,7 +45,17 @@ else Setup.Verify();
 
 // Execute functions based on arguments
 if (program.setup) Setup.Init();
-if (program.start) app.listen(PORT);
+if (program.start) {
+	let portArg = process.argv[3];
+	if (portArg && portArg.length > 3) {
+		PORT = process.argv[3];
+	} else {
+		console.log("Supplied port must be at least 4 numbers long!");
+		process.exit(1);
+	}
+	console.log(`\nListening on port ${PORT}`);
+	app.listen(PORT);
+}
 if (program.wallet) Wallet.Choose();
 
 // Cross Origin middleware
@@ -101,8 +109,8 @@ app.post('/transactionDetails', async(req, res) => {
 
 
     Sign.SignTX(rawTx, from, password).then((val) => {
-        console.log('signed digest: ', val);   
-        signedTransactionObject = val;   
+        console.log('signed digest: ', val);
+        signedTransactionObject = val;
     }).catch(function(error) {
       console.log(error);
     });
